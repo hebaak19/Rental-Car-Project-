@@ -1,0 +1,62 @@
+package UI;
+import java.time.LocalDate;
+import java.util.Scanner;
+
+import Classes.Car;
+import Classes.Payment;
+import Classes.RentalContract;
+
+public class RentalService {
+    static Scanner scanner = new Scanner(System.in);
+    static int periodDays;
+
+    public static void rentACar() {
+        String carId = Validation.getValidatedInput(
+                "Enter Car ID to rent:",
+                Validation.carID,
+                "Invalid Car ID format. ID should contain only digits and be at least 4 characters long.");
+        Car selectedCar = null;
+        for (Car car : Main.carInventory) {
+            if (car.getCarId() == carId && car.isAvailable()) {
+                selectedCar = car;
+                break;
+            }
+        }
+        if (selectedCar != null) {
+            System.out.println("Enter rental period in days:");
+            periodDays = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+            LocalDate startDate = LocalDate.now();
+            LocalDate endDate = startDate.plusDays(periodDays);
+            double totalCost = periodDays * selectedCar.getPricePerDay();
+            Main.rentalContracts.add(new RentalContract(carId, startDate, endDate, totalCost));
+            selectedCar.setAvailable(false);
+            System.out.println("Enter your payment method: ");
+            String paymentMethod = scanner.nextLine();
+            Payment payment = new Payment(carId, totalCost, LocalDate.now(), paymentMethod);
+            System.out.println("Car rented successfully! Review Your payment " + payment.toString());
+        } else {
+            System.out.println("Car not available for rent.");
+        }
+    }
+
+    public static void returnACar() {
+        String carId = Validation.getValidatedInput(
+                "Enter Car ID to return:",
+                Validation.carID,
+                "Invalid Car ID format. ID should contain only digits and be at least 4 characters long.");
+        Car returningCar = null;
+        for (Car car : Main.carInventory) {
+            if (car.getCarId() == carId && !car.isAvailable()) {
+                returningCar = car;
+                break;
+            }
+        }
+        if (returningCar != null) {
+            returningCar.setAvailable(true);
+            System.out.println("Car returned successfully!");
+        } else {
+            System.out.println("Invalid Car ID or Car is not rented.");
+        }
+    }
+}
