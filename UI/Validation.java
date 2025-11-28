@@ -14,7 +14,8 @@ public class Validation {
     static public String carID = "^[0-9]{4,}$";
     static public String contractId = "^[0-9]{4,}$";
 
-    public static Role getValidatedRole() {
+    // implementing method overloading
+    public static Role getValidatedInput() {
         while (true) {
             System.out.println("Enter your role (Admin, Manager, Salesman, CustomerService):");
             String roleInput = scanner.nextLine();

@@ -47,7 +47,7 @@ public class Main {
                     Validation.idRegex,
                     "Invalid ID format. ID should contain only digits and be at least 4 characters long.");
 
-            Role role = Validation.getValidatedRole();
+            Role role = Validation.getValidatedInput();
 
             String workEmail = Validation.getValidatedInput(
                     "Enter your work email:",
