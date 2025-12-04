@@ -15,11 +15,14 @@ public class Main {
     static Person customer, employee;
     static public ArrayList<RentalContract> rentalContracts = new ArrayList<>();
     static public ArrayList<Car> carInventory = new ArrayList<>();
+    static public ArrayList<Employee> employees = new ArrayList<>();
     static int periodDays;
 
     public static void main(String[] args) {
         CarActions.sampleCars();
         RentalContract.sampleRentalContracts();
+        // populate sample employees so login can succeed
+        EmployeeSevices.emploeesData();
         int choice;
         do {
             System.out.println(Menu.mainMenu);
@@ -35,48 +38,54 @@ public class Main {
     }
 
     public static void employeeMenu() {
-        if (employee == null) {
 
-            String name = Validation.getValidatedInput(
-                    "Enter your name:",
-                    Validation.nameRegex,
-                    "Invalid name format. Name should contain only letters and spaces and be at least 2 characters long.");
+        String name = Validation.getValidatedInput(
+                "Enter your name:",
+                Validation.nameRegex,
+                ErrorMessages.INVALID_NAME);
 
-            String id = Validation.getValidatedInput(
-                    "Enter your ID:",
-                    Validation.idRegex,
-                    "Invalid ID format. ID should contain only digits and be at least 4 characters long.");
+        String id = Validation.getValidatedInput(
+                "Enter your ID:",
+                Validation.idRegex,
+                ErrorMessages.INVALID_ID);
 
-            Role role = Validation.getValidatedInput();
+        Role role = Validation.getValidatedInput();
 
-            String workEmail = Validation.getValidatedInput(
-                    "Enter your work email:",
-                    Validation.emailRegex,
-                    "Invalid email format. Please enter a valid work email.");
+        String workEmail = Validation.getValidatedInput(
+                "Enter your work email:",
+                Validation.emailRegex,
+                ErrorMessages.INVALID_EMAIL);
 
-            employee = new Employee(name, id, role, workEmail);
-            System.out.println("Your Information: " + employee.toString());
+        // search for a matching employee; only print "not found" after checking all
+        // entries
+        Employee matched = null;
+        for (int i = 0; i < employees.size(); i++) {
+            Employee e = employees.get(i);
+            if (e.getId().equals(id) && e.getName().equalsIgnoreCase(name) && e.getRole() == role
+                    && e.getWorkEmail().equals(workEmail)) {
+                matched = e;
+                break;
+            }
         }
 
-        int choice;
-        do {
-            System.out.println(Menu.employeeMenu);
-            choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1 -> EmployeeSevices.adminMenu();
-                case 2 -> EmployeeSevices.manegerMenu();
-                case 3 -> EmployeeSevices.salesmanMenu();
-                case 4 -> EmployeeSevices.customerServiceMenu();
-                case 5 -> {
-                    System.out.println("Exiting Employee Menu");
-                    employee = null;
-                }
-                default -> System.out.println("Invalid choice. Please try again.");
+        if (matched != null) {
+            employee = matched;
+            System.out.println("Welcome back, " + employee.getName());
+            System.out.println("Choose your action from the Menu:");
+            if (((Employee) employee).getRole() == Role.ADMIN) {
+                EmployeeSevices.adminMenu();
+            } else if (((Employee) employee).getRole() == Role.MANAGER) {
+                EmployeeSevices.manegerMenu();
+            } else if (((Employee) employee).getRole() == Role.SALESMAN) {
+                EmployeeSevices.salesmanMenu();
+            } else if (((Employee) employee).getRole() == Role.CUSTOMERSERVICE) {
+                EmployeeSevices.customerServiceMenu();
             }
+        } else {
+            System.out.println(ErrorMessages.NO_EMPLOYEES);
+            return;
+        }
 
-        } while (choice != 5);
     }
 
     public static void customerMenu() {
@@ -84,21 +93,21 @@ public class Main {
             String name = Validation.getValidatedInput(
                     "Enter your name to continue as Customer:",
                     Validation.nameRegex,
-                    "Invalid name format. Name should contain only letters and spaces and be at least 2 characters long.");
+                    ErrorMessages.INVALID_NAME);
 
             String id = Validation.getValidatedInput(
                     "Enter your ID to continue as Customer:",
                     Validation.idRegex,
-                    "Invalid ID format. ID should contain only digits and be at least 4 characters long.");
+                    ErrorMessages.INVALID_ID);
 
             String phoneNumber = Validation.getValidatedInput(
                     "Enter your phone number to continue as Customer:",
                     Validation.phoneRegex,
-                    "Invalid phone number format. Phone number should contain exactly 10 digits.");
+                    ErrorMessages.INVALID_PHONE_NUMBER);
             String license = Validation.getValidatedInput(
                     "Enter your driver's license plate to continue as Customer:",
                     Validation.licensePlateRegex,
-                    "Invalid license plate format. License plate should contain only uppercase letters, digits, and hyphens, and be up to 10 characters long.");
+                    ErrorMessages.INVALID_LICENSE_PLATE);
             customer = new Customer(name, id, phoneNumber, license);
             System.out.println("Your Information, " + customer.toString() + "!");
         }

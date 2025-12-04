@@ -1,3 +1,4 @@
+//todo must be abstract
 package Classes;
 public class Person {
     private String name;

@@ -1,4 +1,5 @@
 package Classes;
+
 import java.time.LocalDate;
 
 import UI.Main;
@@ -15,9 +16,9 @@ public class RentalContract {
         this.endDate = endDate;
         this.totalCost = totalCost;
     }
-     public static void sampleRentalContracts() {
-        Main.rentalContracts.add(new RentalContract("1122", LocalDate.of(2025, 12, 1), LocalDate.of(2025, 12, 22), 500.0));
-        Main.rentalContracts.add(new RentalContract("3344", LocalDate.of(2025, 12, 1), LocalDate.of(2025, 12, 23), 270.0));
+
+    public static void sampleRentalContracts() {
+
     }
 
     public String getId() {
@@ -52,14 +53,22 @@ public class RentalContract {
         return endDate.getDayOfYear() - startDate.getDayOfYear();
     }
 
-    public double calculateTotalCost(double cost) {
+    public static double calculateTotalCost() {
+        double sum = 0;
+        if (!Main.rentalContracts.isEmpty()) {
+            for (RentalContract rc : Main.rentalContracts) {
+                sum += rc.getTotalCost();
+
+            }
+            return sum;
+        }
         return 0.0;
     }
 
     @Override
     public String toString() {
-        return "RentalContract [contractId=" + contractId + ", startDate=" + startDate + ", endDate=" + endDate
-                + ", totalCost=" + totalCost + "]";
+        return "Contract ID: " + contractId + ", Start Date: " + startDate + ", End Date: " + endDate
+                + ", Total Cost: " + totalCost + " SAR";
     }
-    
+
 }

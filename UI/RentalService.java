@@ -1,4 +1,6 @@
+//todo implement payment interface
 package UI;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -14,10 +16,10 @@ public class RentalService {
         String carId = Validation.getValidatedInput(
                 "Enter Car ID to rent:",
                 Validation.carID,
-                "Invalid Car ID format. ID should contain only digits and be at least 4 characters long.");
+                ErrorMessages.INVALID_CAR_ID);
         Car selectedCar = null;
         for (Car car : Main.carInventory) {
-            if (car.getCarId() == carId && car.isAvailable()) {
+            if (car.getCarId().equals(carId) && car.isAvailable()) {
                 selectedCar = car;
                 break;
             }
@@ -44,7 +46,7 @@ public class RentalService {
         String carId = Validation.getValidatedInput(
                 "Enter Car ID to return:",
                 Validation.carID,
-                "Invalid Car ID format. ID should contain only digits and be at least 4 characters long.");
+                ErrorMessages.INVALID_CAR_ID);
         Car returningCar = null;
         for (Car car : Main.carInventory) {
             if (car.getCarId() == carId && !car.isAvailable()) {

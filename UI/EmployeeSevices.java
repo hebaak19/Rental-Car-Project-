@@ -1,13 +1,24 @@
 package UI;
+
 import java.time.LocalDate;
 import java.util.Scanner;
 
 import Classes.Car;
 import Classes.Payment;
 import Classes.RentalContract;
+import Enum.Role;
 
 public class EmployeeSevices {
     static Scanner scanner = new Scanner(System.in);
+
+    public static void emploeesData() {
+        // Employee constructor: Employee(String name, String id, Role role, String
+        // workEmail)
+        Main.employees.add(new Classes.Employee("Alice", "1001", Role.ADMIN, "alice@gmail.com"));
+        Main.employees.add(new Classes.Employee("Bob", "1002", Role.MANAGER, "bob@gmail.com"));
+        Main.employees.add(new Classes.Employee("Noor", "1003", Role.SALESMAN, "noor@gmail.com"));
+        Main.employees.add(new Classes.Employee("Heba", "1004", Role.CUSTOMERSERVICE, "heba@gmail.com"));
+    }
 
     public static void adminMenu() {
 
@@ -50,8 +61,7 @@ public class EmployeeSevices {
                 case 1:
                     System.out.println("Viewing Rental contracts...");
                     for (RentalContract rc : Main.rentalContracts) {
-                        System.out.println("Contract ID: " + rc.getId() + ", Start Date: " + rc.getStartDate()
-                                + ", End Date: " + rc.getEndDate() + ", Total Cost: " + rc.getTotalCost());
+                        System.out.println(rc.toString());
                     }
                     break;
                 case 2:
@@ -71,7 +81,7 @@ public class EmployeeSevices {
             scanner.nextLine();
             switch (choice) {
                 case 1 -> {
-                    System.out.println("Total sales = " + calculateTotalCost());
+                    System.out.println("Total sales = " + RentalContract.calculateTotalCost());
                 }
 
                 case 2 -> System.out.println("Exiting Salesman Menu");
@@ -97,19 +107,7 @@ public class EmployeeSevices {
                 default ->
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 2);
-    }
-
-    public static double calculateTotalCost() {
-        double sum = 0;
-        if (!Main.rentalContracts.isEmpty()) {
-            for (RentalContract rc : Main.rentalContracts) {
-                sum += rc.getTotalCost();
-
-            }
-            return sum;
-        }
-        return 0.0;
+        } while (choice != 3);
     }
 
     public static void viewActiveContracts() {

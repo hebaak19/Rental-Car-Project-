@@ -1,10 +1,12 @@
 package Classes;
+
 public class Car {
     private String carId;
     private String brand;
     private String model;
     private double pricePerDay;
     private boolean isAvailable;
+
     public Car(String carId, String brand, String model, double pricePerDay, boolean isAvailable) {
         this.carId = carId;
         this.brand = brand;
@@ -58,8 +60,8 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car [carId=" + carId + ", brand=" + brand + ", model=" + model + ", pricePerDay=" + pricePerDay
-                + ", isAvailable=" + isAvailable + "]";
+        return "Car [carId = " + carId + ", brand = " + brand + ", model = " + model + ", pricePerDay = " + pricePerDay
+                + " SAR " + ", isAvailable= " + isAvailable + "]";
     }
 
 }

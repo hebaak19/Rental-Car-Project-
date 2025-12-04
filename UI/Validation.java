@@ -10,7 +10,7 @@ public class Validation {
     static public String idRegex = "^[0-9]{4,}$";
     static public String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     static public String phoneRegex = "^[0-9]{10}$";
-    static public String licensePlateRegex = "^[A-Z0-9-]{1,10}$";
+    static public String licensePlateRegex = "^[0-9]{10}$";
     static public String carID = "^[0-9]{4,}$";
     static public String contractId = "^[0-9]{4,}$";
 

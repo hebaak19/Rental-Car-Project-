@@ -16,7 +16,7 @@ public class Payment implements Payable {
 
     @Override
     public String toString() {
-        return "Payment [paymentId=" + paymentId + ", amount=" + amount + ", date=" + date + ", paymentMethod="
+        return "Payment [paymentId: " + paymentId + ", amount: " + amount + " SAR " + ", Starting date: " + date + ", paymentMethod:"
                 + paymentMethod + "]";
     }
 

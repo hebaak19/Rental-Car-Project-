@@ -1,4 +1,5 @@
 package UI;
+
 import java.util.Scanner;
 
 import Classes.Car;
@@ -13,12 +14,14 @@ public class CarActions {
     }
 
     public static void AddCar() {
+
         System.out.println("Add Car");
         String id = Validation.getValidatedInput(
                 "Enter Car ID:",
                 Validation.carID,
                 "Invalid Car ID format. ID should contain only digits and be at least 4 characters long.");
-        if (Main.carInventory.stream().anyMatch(car -> car.getCarId() == id)) {
+
+        if (Main.carInventory.stream().anyMatch(car -> car.getCarId().equals(id))) {
             System.out.println("Car ID already exists. Cannot add duplicate ID.");
             return;
         }
@@ -38,9 +41,9 @@ public class CarActions {
         String removeId = Validation.getValidatedInput(
                 "Enter Car ID to remove:",
                 Validation.carID,
-                "Invalid Car ID format. ID should contain only digits and be at least 4 characters long.");
-        Main.carInventory.removeIf(car -> car.getCarId() == removeId);
-        System.out.println("Car removed successfully if it existed!");
+                ErrorMessages.INVALID_CAR_ID);
+        Main.carInventory.removeIf(car -> car.getCarId().equals(removeId));
+        System.out.println("Car removed successfully!");
     }
 
     public static void viewAvailableCars() {
