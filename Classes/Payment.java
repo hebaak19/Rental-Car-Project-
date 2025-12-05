@@ -88,12 +88,14 @@ public class Payment implements Payable {
                 "Enter Contract ID to process refund:",
                 Validation.contractId,
                 ErrorMessages.INVALID_CONTRACT_ID);
+        scanner.nextLine();
+        PaymentMethod method = Validation.vPaymentMethod();
         for (RentalContract rc : Main.rentalContracts) {
             if (rc.getId().equals(contractId) && rc.getEndDate().isAfter(LocalDate.now())) {
                 System.out
-                        .println("Processing refund for Contract ID: " + contractId + ", Amount: " + rc.getTotalCost());
-                // SUBSTRACT REFUND LOGIC HERE
-                // the calculate amount should decrease from total payments
+                        .println("Processing refund for Contract ID: " + contractId + ", Amount: " + rc.getTotalCost()
+                                + " via " + method);
+                rc.setActive(false);
                 return;
             } else {
                 System.out.println("No active contract found with ID: " + contractId);

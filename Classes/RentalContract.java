@@ -9,12 +9,22 @@ public class RentalContract {
     private LocalDate startDate;
     private LocalDate endDate;
     private double totalCost;
+    private boolean isActive;
 
     public RentalContract(String contractId, LocalDate startDate, LocalDate endDate, double totalCost) {
         this.contractId = contractId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalCost = totalCost;
+        this.isActive = true;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
     public static void sampleRentalContracts() {
@@ -57,7 +67,8 @@ public class RentalContract {
         double sum = 0;
         if (!Main.rentalContracts.isEmpty()) {
             for (RentalContract rc : Main.rentalContracts) {
-                sum += rc.getTotalCost();
+                if (rc.isActive())
+                    sum += rc.getTotalCost();
 
             }
             return sum;
