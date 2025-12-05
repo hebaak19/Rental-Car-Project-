@@ -16,6 +16,7 @@ public class Main {
     static public ArrayList<RentalContract> rentalContracts = new ArrayList<>();
     static public ArrayList<Car> carInventory = new ArrayList<>();
     static public ArrayList<Employee> employees = new ArrayList<>();
+    static public ArrayList<Customer> customers = new ArrayList<>();
     static int periodDays;
 
     public static void main(String[] args) {
@@ -109,6 +110,7 @@ public class Main {
                     Validation.licensePlateRegex,
                     ErrorMessages.INVALID_LICENSE_PLATE);
             customer = new Customer(name, id, phoneNumber, license);
+            customers.add((Customer) customer);
             System.out.println("Your Information, " + customer.toString() + "!");
         }
         System.out.println("Customer Menu");

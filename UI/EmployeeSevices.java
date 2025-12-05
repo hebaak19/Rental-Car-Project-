@@ -59,18 +59,27 @@ public class EmployeeSevices {
             scanner.nextLine();
             switch (choice) {
                 case 1:
+                    if (Main.rentalContracts.isEmpty()) {
+                        System.out.println("No rental contracts at the moment.");
+                        break;
+                    }
                     System.out.println("Viewing Rental contracts...");
                     for (RentalContract rc : Main.rentalContracts) {
                         System.out.println(rc.toString());
                     }
                     break;
                 case 2:
+                    System.out.println("View all Employees");
+                    for (Classes.Employee emp : Main.employees) {
+                        System.out.println(emp.toString());
+                    }
+                case 3:
                     System.out.println("Exiting Manager Menu");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 2);
+        } while (choice != 3);
     }
 
     public static void salesmanMenu() {
@@ -84,11 +93,20 @@ public class EmployeeSevices {
                     System.out.println("Total sales = " + RentalContract.calculateTotalCost());
                 }
 
-                case 2 -> System.out.println("Exiting Salesman Menu");
-
+                case 2 -> {
+                    System.out.println("View all Customers");
+                    if (Main.customers.isEmpty()) {
+                        System.out.println("No customers found.");
+                        break;
+                    }
+                    for (Classes.Customer cust : Main.customers) {
+                        System.out.println(cust.toString());
+                    }
+                }
+                case 3 -> System.out.println("Exiting Salesman Menu");
                 default -> System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 2);
+        } while (choice != 3);
     }
 
     public static void customerServiceMenu() {
@@ -98,7 +116,7 @@ public class EmployeeSevices {
             choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
-                case 1 -> EmployeeSevices.viewActiveContracts();
+                case 1 -> viewActiveContracts();
                 case 2 -> {
                     Payment payment = new Payment();
                     payment.refund();

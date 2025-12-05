@@ -1,4 +1,5 @@
 package Classes;
+
 public class Customer extends Person {
     private String phoneNumber;
     private String license;
@@ -7,6 +8,11 @@ public class Customer extends Person {
         super(name, id);
         this.phoneNumber = phoneNumber;
         this.license = license;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer" + super.toString() + " phoneNumber: " + phoneNumber + ", license: " + license ;
     }
 
     public Customer() {

@@ -1,5 +1,7 @@
 package Classes;
+
 import Enum.Role;
+
 public class Employee extends Person {
     private Role role;
     private String workEmail;
@@ -10,7 +12,10 @@ public class Employee extends Person {
         this.workEmail = workEmail;
     }
 
-  
+    @Override
+    public String toString() {
+        return "Name: " + getName() + ", ID: " + getId() + ", Role: " + role + ", Work Email: " + workEmail;
+    }
 
     public Role getRole() {
         return role;

@@ -1,12 +1,13 @@
 //todo must be abstract
 package Classes;
-public class Person {
+
+public abstract class Person {
     private String name;
     private String id;
 
     @Override
     public String toString() {
-        return " [name=" + name + ", id=" + id + "]";
+        return " name: " + name + ", id: " + id + " ";
     }
 
     public Person(String name, String id) {

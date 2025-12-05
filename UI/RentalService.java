@@ -35,6 +35,7 @@ public class RentalService {
             selectedCar.setAvailable(false);
             System.out.println("Enter your payment method: ");
             String paymentMethod = scanner.nextLine();
+            // todo implement payment processing
             Payment payment = new Payment(carId, totalCost, LocalDate.now(), paymentMethod);
             System.out.println("Car rented successfully! Review Your payment " + payment.toString());
         } else {

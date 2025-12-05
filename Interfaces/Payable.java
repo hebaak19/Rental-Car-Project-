@@ -1,5 +1,8 @@
 package Interfaces;
+
 public interface Payable {
-    void processPayment(double amount);
+    public void processPayment(double amount);
+
+    public void refund();
 
 }
