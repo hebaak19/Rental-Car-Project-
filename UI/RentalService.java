@@ -3,7 +3,7 @@ package UI;
 
 import java.time.LocalDate;
 import java.util.Scanner;
-
+import Enum.PaymentMethod;
 import Classes.Car;
 import Classes.Payment;
 import Classes.RentalContract;
@@ -33,9 +33,7 @@ public class RentalService {
             double totalCost = periodDays * selectedCar.getPricePerDay();
             Main.rentalContracts.add(new RentalContract(carId, startDate, endDate, totalCost));
             selectedCar.setAvailable(false);
-            System.out.println("Enter your payment method: ");
-            String paymentMethod = scanner.nextLine();
-            // todo implement payment processing
+            PaymentMethod paymentMethod = Validation.vPaymentMethod();
             Payment payment = new Payment(carId, totalCost, LocalDate.now(), paymentMethod);
             System.out.println("Car rented successfully! Review Your payment " + payment.toString());
         } else {
