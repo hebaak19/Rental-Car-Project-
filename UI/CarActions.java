@@ -1,7 +1,6 @@
 package UI;
 
 import java.util.Scanner;
-
 import Classes.Car;
 
 public class CarActions {
@@ -19,10 +18,10 @@ public class CarActions {
         String id = Validation.getValidatedInput(
                 "Enter Car ID:",
                 Validation.carID,
-                "Invalid Car ID format. ID should contain only digits and be at least 4 characters long.");
+                ErrorMessages.INVALID_CAR_ID);
 
         if (Main.carInventory.stream().anyMatch(car -> car.getCarId().equals(id))) {
-            System.out.println("Car ID already exists. Cannot add duplicate ID.");
+            System.out.println(ErrorMessages.CAR_ID_EXISTS);
             return;
         }
         System.out.println("Enter Car Make:");
