@@ -89,13 +89,14 @@ public class Payment implements Payable {
                 Validation.contractId,
                 ErrorMessages.INVALID_CONTRACT_ID);
         for (RentalContract rc : Main.rentalContracts) {
-            if (rc.getId() == contractId) {
+            if (rc.getId().equals(contractId) && rc.getEndDate().isAfter(LocalDate.now())) {
                 System.out
                         .println("Processing refund for Contract ID: " + contractId + ", Amount: " + rc.getTotalCost());
                 // SUBSTRACT REFUND LOGIC HERE
                 // the calculate amount should decrease from total payments
-                
                 return;
+            } else {
+                System.out.println("No active contract found with ID: " + contractId);
             }
         }
     }

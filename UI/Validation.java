@@ -1,5 +1,7 @@
 package UI;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import Enum.Role;
@@ -25,7 +27,7 @@ public class Validation {
             try {
                 return Role.valueOf(roleInput.toUpperCase());
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid role. Please choose one of: Admin, Manager, Salesman, CustomerService.");
+                System.out.println(ErrorMessages.INVALID_ROLE);
             }
         }
     }
@@ -58,4 +60,24 @@ public class Validation {
         }
     }
 
+    public static LocalDate validateDate() {
+        while (true) {
+            System.out.println("Enter the rental start date (YYYY-MM-DD):");
+            String dateInput = scanner.nextLine();
+
+            try {
+                LocalDate inputDate = LocalDate.parse(dateInput);
+
+                // Check if date is today or in the future
+                if (inputDate.isBefore(LocalDate.now())) {
+                    System.out
+                            .println("Error: Date cannot be in the past. Please enter today's date or a future date.");
+                } else {
+                    return inputDate; // Return the valid date and exit the loop
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println(ErrorMessages.INVALID_DATE_FORMAT);
+            }
+        }
+    }
 }

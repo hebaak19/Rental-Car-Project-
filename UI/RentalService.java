@@ -25,10 +25,10 @@ public class RentalService {
             }
         }
         if (selectedCar != null) {
+            LocalDate startDate= Validation.validateDate();
             System.out.println("Enter rental period in days:");
             periodDays = scanner.nextInt();
             scanner.nextLine(); // consume newline
-            LocalDate startDate = LocalDate.now();
             LocalDate endDate = startDate.plusDays(periodDays);
             double totalCost = periodDays * selectedCar.getPricePerDay();
             Main.rentalContracts.add(new RentalContract(carId, startDate, endDate, totalCost));
@@ -48,7 +48,7 @@ public class RentalService {
                 ErrorMessages.INVALID_CAR_ID);
         Car returningCar = null;
         for (Car car : Main.carInventory) {
-            if (car.getCarId() == carId && !car.isAvailable()) {
+            if (car.getCarId().equals(carId) && !car.isAvailable()) {
                 returningCar = car;
                 break;
             }
@@ -56,8 +56,9 @@ public class RentalService {
         if (returningCar != null) {
             returningCar.setAvailable(true);
             System.out.println("Car returned successfully!");
+
         } else {
-            System.out.println("Invalid Car ID or Car is not rented.");
+            System.out.println("Invaild Car ID or Car already exsit.");
         }
     }
 }
