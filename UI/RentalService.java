@@ -25,23 +25,37 @@ public class RentalService {
             }
         }
         if (selectedCar != null) {
-            LocalDate startDate= Validation.validateDate();
-            System.out.println("Enter rental period in days:");
-            periodDays = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            LocalDate startDate = Validation.validateDate();
+            String periodInput = Validation.validateDays();
+            Integer periodDays = Integer.parseInt(periodInput);
+            while (periodDays <= 0) {
+                System.out.println("Invalid number of days. Please enter a positive integer.");
+                periodInput = Validation.validateDays();
+                periodDays = Integer.parseInt(periodInput);
+            }
             LocalDate endDate = startDate.plusDays(periodDays);
             double totalCost = periodDays * selectedCar.getPricePerDay();
             Main.rentalContracts.add(new RentalContract(carId, startDate, endDate, totalCost));
             selectedCar.setAvailable(false);
             PaymentMethod paymentMethod = Validation.vPaymentMethod();
             Payment payment = new Payment(carId, totalCost, LocalDate.now(), paymentMethod);
-            System.out.println("Car rented successfully! Review Your payment " + payment.toString());
+            payment.processPayment(paymentMethod);
+
+            for (Classes.Customer customer : Main.customers) {
+                if (customer.getCarRented() == null) {
+                    customer.setCarRented(carId);
+                    break;
+                }
+            }
+
+            System.out.println("Review Your payment " + payment.toString());
         } else {
             System.out.println("Car not available for rent.");
         }
     }
 
     public static void returnACar() {
+
         String carId = Validation.getValidatedInput(
                 "Enter Car ID to return:",
                 Validation.carID,
@@ -55,6 +69,7 @@ public class RentalService {
         }
         if (returningCar != null) {
             returningCar.setAvailable(true);
+
             System.out.println("Car returned successfully!");
 
         } else {

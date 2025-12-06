@@ -3,6 +3,7 @@ package Classes;
 public class Customer extends Person {
     private String phoneNumber;
     private String license;
+    private String carRented;
 
     public Customer(String name, String id, String phoneNumber, String license) {
         super(name, id);
@@ -12,7 +13,7 @@ public class Customer extends Person {
 
     @Override
     public String toString() {
-        return "Customer" + super.toString() + " phoneNumber: " + phoneNumber + ", license: " + license ;
+        return "Customer" + super.toString() + " phoneNumber: " + phoneNumber + ", license: " + license;
     }
 
     public Customer() {
@@ -20,6 +21,14 @@ public class Customer extends Person {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getCarRented() {
+        return carRented;
+    }
+
+    public void setCarRented(String carRented) {
+        this.carRented = carRented;
     }
 
     public void setPhoneNumber(String phoneNumber) {

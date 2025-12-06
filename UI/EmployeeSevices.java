@@ -100,7 +100,7 @@ public class EmployeeSevices {
                         break;
                     }
                     for (Classes.Customer cust : Main.customers) {
-                        System.out.println(cust.toString());
+                        System.out.println(cust.toString() + " Car Rented: " + cust.getCarRented());
                     }
                 }
                 case 3 -> System.out.println("Exiting Salesman Menu");
@@ -118,8 +118,15 @@ public class EmployeeSevices {
             switch (choice) {
                 case 1 -> viewActiveContracts();
                 case 2 -> {
-                    Payment payment = new Payment();
-                    payment.refund();
+                    // if no active contracts
+                    if (Main.rentalContracts.isEmpty()) {
+                        System.out.println("No rental contracts at the moment.");
+                        break;
+                    } else {
+                        Payment payment = new Payment();
+                        payment.refund();
+                    }
+
                 }
                 case 3 -> System.out.println("Exiting Customer Service Menu");
                 default ->

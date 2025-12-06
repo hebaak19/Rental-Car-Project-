@@ -18,7 +18,6 @@ public class Validation {
     static public String contractId = "^[0-9]{4,}$";
     static public String creditCardNumber = "^[0-9]{10}$";
 
-    // implementing method overloading
     public static Role getValidatedInput() {
         while (true) {
             System.out.println("Enter your role (Admin, Manager, Salesman, CustomerService):");
@@ -68,15 +67,28 @@ public class Validation {
             try {
                 LocalDate inputDate = LocalDate.parse(dateInput);
 
-                // Check if date is today or in the future
                 if (inputDate.isBefore(LocalDate.now())) {
                     System.out
                             .println("Error: Date cannot be in the past. Please enter today's date or a future date.");
                 } else {
-                    return inputDate; // Return the valid date and exit the loop
+                    return inputDate;
                 }
             } catch (DateTimeParseException e) {
                 System.out.println(ErrorMessages.INVALID_DATE_FORMAT);
+            }
+        }
+    }
+
+    public static String validateDays() {
+        // grater than 0
+        String days;
+        while (true) {
+            System.out.println("Enter rental period in days:");
+            days = scanner.nextLine();
+            if (days.matches("^[0-9]+$")) {
+                return days;
+            } else {
+                System.out.println("Invalid input. Please enter a valid number of days.");
             }
         }
     }

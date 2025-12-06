@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
-    // implementing polymorphism
+
     static Person customer, employee;
     static public ArrayList<RentalContract> rentalContracts = new ArrayList<>();
     static public ArrayList<Car> carInventory = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Main {
     public static void main(String[] args) {
         CarActions.sampleCars();
         RentalContract.sampleRentalContracts();
-        // populate sample employees so login can succeed
+
         EmployeeSevices.emploeesData();
         int choice;
         do {
@@ -57,8 +57,6 @@ public class Main {
                 Validation.emailRegex,
                 ErrorMessages.INVALID_EMAIL);
 
-        // search for a matching employee; only print "not found" after checking all
-        // entries
         Employee matched = null;
         for (int i = 0; i < employees.size(); i++) {
             Employee e = employees.get(i);
@@ -100,7 +98,12 @@ public class Main {
                     "Enter your ID to continue as Customer:",
                     Validation.idRegex,
                     ErrorMessages.INVALID_ID);
-
+            if (customers.stream().anyMatch(c -> c.getId().equals(id))) {
+                System.out.println("Welcome back, " + name + "!");
+                System.out.println("Proceeding to Customer Menu...");
+                customerServices();
+                return;
+            }
             String phoneNumber = Validation.getValidatedInput(
                     "Enter your phone number to continue as Customer:",
                     Validation.phoneRegex,
@@ -110,9 +113,15 @@ public class Main {
                     Validation.licensePlateRegex,
                     ErrorMessages.INVALID_LICENSE_PLATE);
             customer = new Customer(name, id, phoneNumber, license);
+
             customers.add((Customer) customer);
             System.out.println("Your Information, " + customer.toString() + "!");
+            customerServices();
         }
+
+    }
+
+    public static void customerServices() {
         System.out.println("Customer Menu");
         int choice;
         do {
@@ -131,5 +140,4 @@ public class Main {
             }
         } while (choice != 4);
     }
-
 }
