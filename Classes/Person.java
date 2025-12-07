@@ -1,4 +1,4 @@
-//todo must be abstract
+
 package Classes;
 
 public abstract class Person {

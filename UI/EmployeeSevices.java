@@ -139,7 +139,7 @@ public class EmployeeSevices {
         boolean found = false;
         System.out.println("Active Rental Contracts:");
         for (RentalContract rc : Main.rentalContracts) {
-            if (!rc.getEndDate().isBefore(LocalDate.now())) {
+            if (!rc.getEndDate().isBefore(LocalDate.now()) && rc.isActive()) {
                 System.out.println(rc.toString());
                 found = true;
             }

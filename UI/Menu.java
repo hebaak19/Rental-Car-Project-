@@ -20,7 +20,8 @@ public class Menu {
                         1. View Available Cars
                         2. Rent a Car
                         3. Return a Car
-                        4. Exit
+                        4. Refund Request
+                        5. Exit
                         """;
         static String adminMenu = """
                         === Admin Menu ===

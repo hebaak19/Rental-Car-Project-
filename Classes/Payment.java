@@ -90,7 +90,7 @@ public class Payment implements Payable {
                 ErrorMessages.INVALID_CONTRACT_ID);
 
         for (RentalContract rc : Main.rentalContracts) {
-            if (rc.getId().equals(contractId) && rc.getEndDate().isAfter(LocalDate.now())) {
+            if (rc.getId().equals(contractId) && rc.getEndDate().isAfter(LocalDate.now()) && rc.isActive()) {
                 PaymentMethod method = Validation.vPaymentMethod();
                 System.out
                         .println("Processing refund for Contract ID: " + contractId + ", Amount: " + rc.getTotalCost()

@@ -132,12 +132,13 @@ public class Main {
                 case 1 -> CarActions.viewAvailableCars();
                 case 2 -> RentalService.rentACar();
                 case 3 -> RentalService.returnACar();
-                case 4 -> {
+                case 4 -> RentalService.customerRefund();
+                case 5 -> {
                     System.out.println("Exiting Customer Menu");
                     customer = null;
                 }
                 default -> System.out.println("Invalid choice. Please try again.");
             }
-        } while (choice != 4);
+        } while (choice != 5);
     }
 }

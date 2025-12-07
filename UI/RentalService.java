@@ -76,4 +76,30 @@ public class RentalService {
             System.out.println("Invaild Car ID or Car already exsit.");
         }
     }
+
+    public static void customerRefund() {
+        // here we will be directing the user to customer refund process
+        String carId = Validation.getValidatedInput(
+                "Enter Car ID for refund:",
+                Validation.carID,
+                ErrorMessages.INVALID_CAR_ID);
+        RentalContract contractToRefund = null;
+        for (RentalContract contract : Main.rentalContracts) {
+            if (contract.getId().equals(carId) && contract.getEndDate().isAfter(LocalDate.now())
+                    && contract.isActive()) {
+                contractToRefund = contract;
+                break;
+            }
+        }
+        // is it gonna appear for customerService employee
+        if (contractToRefund != null) {
+            PaymentMethod method = Validation.vPaymentMethod();
+            System.out
+                    .println("Processing refund for Car ID: " + carId + ", Amount: " + contractToRefund.getTotalCost()
+                            + " via " + method);
+            contractToRefund.setActive(false);
+        } else {
+            System.out.println("No contract found with Car ID: " + carId);
+        }
+    }
 }
