@@ -23,7 +23,7 @@ public class Menu {
                         4. Refund Request
                         5. Exit
                         """;
-        static String adminMenu = """
+        public static String adminMenu = """
                         === Admin Menu ===
                         1. Add Car
                         2. Remove Car
@@ -31,20 +31,20 @@ public class Menu {
                         4. Exit
                         """;
 
-        static String managerMenu = """
+        public static String managerMenu = """
                         === Manager Menu ===
                         1. View Reports
                         2. View all Employees
                         3. Exit
                         """;
 
-        static String salesmanMenu = """
+        public static String salesmanMenu = """
                         === Salesman Menu ===
                         1. View Sales
                         2. View all Customers
                         3. Exit
                         """;
-        static String customerServiceMenu = """
+        public static String customerServiceMenu = """
                         === Customer Service Menu ===
                         1. View Active Contracts
                         2. Manage refunds

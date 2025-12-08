@@ -4,6 +4,7 @@ import java.util.Scanner;
 import Classes.Car;
 import Classes.Customer;
 import Classes.Employee;
+import Classes.Payment;
 import Classes.Person;
 import Classes.RentalContract;
 import Enum.Role;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
 
-    static Person customer, employee;
+    static public Person customer, employee;
     static public ArrayList<RentalContract> rentalContracts = new ArrayList<>();
     static public ArrayList<Car> carInventory = new ArrayList<>();
     static public ArrayList<Employee> employees = new ArrayList<>();
@@ -20,10 +21,10 @@ public class Main {
     static int periodDays;
 
     public static void main(String[] args) {
-        CarActions.sampleCars();
+        Car.sampleCars();
         RentalContract.sampleRentalContracts();
 
-        EmployeeSevices.emploeesData();
+        Employee.emploeesData();
         int choice;
         do {
             System.out.println(Menu.mainMenu);
@@ -72,13 +73,13 @@ public class Main {
             System.out.println("Welcome back, " + employee.getName());
             System.out.println("Choose your action from the Menu:");
             if (((Employee) employee).getRole() == Role.ADMIN) {
-                EmployeeSevices.adminMenu();
+                Employee.adminMenu();
             } else if (((Employee) employee).getRole() == Role.MANAGER) {
-                EmployeeSevices.manegerMenu();
+                Employee.manegerMenu();
             } else if (((Employee) employee).getRole() == Role.SALESMAN) {
-                EmployeeSevices.salesmanMenu();
+                Employee.salesmanMenu();
             } else if (((Employee) employee).getRole() == Role.CUSTOMERSERVICE) {
-                EmployeeSevices.customerServiceMenu();
+                Employee.customerServiceMenu();
             }
         } else {
             System.out.println(ErrorMessages.NO_EMPLOYEES);
@@ -98,12 +99,17 @@ public class Main {
                     "Enter your ID to continue as Customer:",
                     Validation.idRegex,
                     ErrorMessages.INVALID_ID);
-            if (customers.stream().anyMatch(c -> c.getId().equals(id))) {
-                System.out.println("Welcome back, " + name + "!");
-                System.out.println("Proceeding to Customer Menu...");
-                customerServices();
-                return;
+
+            for (Customer c : customers) {
+                if (c.getId().equals(id) && c.getName().equalsIgnoreCase(name)) {
+                    customer = c;
+                    System.out.println("Welcome back, " + name + "!");
+                    System.out.println("Proceeding to Customer Menu...");
+                    customerServices();
+                    return;
+                }
             }
+
             String phoneNumber = Validation.getValidatedInput(
                     "Enter your phone number to continue as Customer:",
                     Validation.phoneRegex,
@@ -129,10 +135,10 @@ public class Main {
             choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
-                case 1 -> CarActions.viewAvailableCars();
-                case 2 -> RentalService.rentACar();
-                case 3 -> RentalService.returnACar();
-                case 4 -> RentalService.customerRefund();
+                case 1 -> Car.viewAvailableCars();
+                case 2 -> Customer.rentACar();
+                case 3 -> Customer.returnACar();
+                case 4 -> Payment.customerRefund();
                 case 5 -> {
                     System.out.println("Exiting Customer Menu");
                     customer = null;

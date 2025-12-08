@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import Enum.PaymentMethod;
 import Interfaces.Payable;
-import UI.EmployeeSevices;
 import UI.Main;
 import UI.Validation;
 import UI.ErrorMessages;
@@ -82,7 +81,7 @@ public class Payment implements Payable {
     }
 
     public void refund() {
-        EmployeeSevices.viewActiveContracts();
+        RentalContract.viewActiveContracts();
         String contractId = Validation.getValidatedInput(
                 "Enter Contract ID to process refund:",
                 Validation.contractId,
@@ -101,4 +100,33 @@ public class Payment implements Payable {
             }
         }
     }
+
+    public static void customerRefund() {
+
+        String carId = Validation.getValidatedInput(
+                "Enter Car ID for refund:",
+                Validation.carID,
+                ErrorMessages.INVALID_CAR_ID);
+        RentalContract contractToRefund = null;
+        for (RentalContract contract : Main.rentalContracts) {
+
+            if (contract.getId().equals(carId) && contract.getEndDate().isAfter(LocalDate.now())
+                    && contract.isActive()) {
+
+                contractToRefund = contract;
+                break;
+            }
+        }
+
+        if (contractToRefund != null) {
+            PaymentMethod method = Validation.vPaymentMethod();
+            System.out
+                    .println("Processing refund for Car ID: " + carId + ", Amount: " + contractToRefund.getTotalCost()
+                            + " via " + method);
+            contractToRefund.setActive(false);
+        } else {
+            System.out.println("No contract found with Car ID: " + carId);
+        }
+    }
+
 }

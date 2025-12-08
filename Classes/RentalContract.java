@@ -64,22 +64,34 @@ public class RentalContract {
     }
 
     public static double calculateTotalCost() {
-        double sum = 0;
-        if (!Main.rentalContracts.isEmpty()) {
-            for (RentalContract rc : Main.rentalContracts) {
-                if (rc.isActive())
-                    sum += rc.getTotalCost();
 
+        double sum = 0.0;
+        for (RentalContract rc : Main.rentalContracts) {
+            if (rc.isActive()) {
+                sum += rc.getTotalCost();
             }
-            return sum;
         }
-        return 0.0;
+        return sum;
     }
 
     @Override
     public String toString() {
         return "Contract ID: " + contractId + ", Start Date: " + startDate + ", End Date: " + endDate
                 + ", Total Cost: " + totalCost + " SAR";
+    }
+
+    public static void viewActiveContracts() {
+        boolean found = false;
+        System.out.println("Active Rental Contracts:");
+        for (RentalContract rc : Main.rentalContracts) {
+            if (!rc.getEndDate().isBefore(LocalDate.now()) && rc.isActive()) {
+                System.out.println(rc.toString());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No active rental contracts found.");
+        }
     }
 
 }
