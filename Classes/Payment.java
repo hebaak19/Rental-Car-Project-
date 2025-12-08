@@ -9,7 +9,6 @@ import UI.Main;
 import UI.Validation;
 import UI.ErrorMessages;
 
-// we need to implement different payment methods using enum
 public class Payment implements Payable {
     static Scanner scanner = new Scanner(System.in);
     private String paymentId;

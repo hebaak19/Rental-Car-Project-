@@ -30,14 +30,14 @@ public class Menu {
                         3. View All Cars
                         4. Exit
                         """;
-        // add view all employees
+
         static String managerMenu = """
                         === Manager Menu ===
                         1. View Reports
                         2. View all Employees
                         3. Exit
                         """;
-        // add view all customers
+
         static String salesmanMenu = """
                         === Salesman Menu ===
                         1. View Sales

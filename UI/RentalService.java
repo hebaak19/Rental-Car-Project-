@@ -1,4 +1,4 @@
-//todo implement payment interface
+
 package UI;
 
 import java.time.LocalDate;
@@ -78,7 +78,7 @@ public class RentalService {
     }
 
     public static void customerRefund() {
-        // here we will be directing the user to customer refund process
+
         String carId = Validation.getValidatedInput(
                 "Enter Car ID for refund:",
                 Validation.carID,
@@ -91,7 +91,7 @@ public class RentalService {
                 break;
             }
         }
-        // is it gonna appear for customerService employee
+
         if (contractToRefund != null) {
             PaymentMethod method = Validation.vPaymentMethod();
             System.out

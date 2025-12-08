@@ -12,8 +12,7 @@ public class EmployeeSevices {
     static Scanner scanner = new Scanner(System.in);
 
     public static void emploeesData() {
-        // Employee constructor: Employee(String name, String id, Role role, String
-        // workEmail)
+
         Main.employees.add(new Classes.Employee("Alice", "1001", Role.ADMIN, "alice@gmail.com"));
         Main.employees.add(new Classes.Employee("Bob", "1002", Role.MANAGER, "bob@gmail.com"));
         Main.employees.add(new Classes.Employee("Noor", "1003", Role.SALESMAN, "noor@gmail.com"));
@@ -118,7 +117,7 @@ public class EmployeeSevices {
             switch (choice) {
                 case 1 -> viewActiveContracts();
                 case 2 -> {
-                    // if no active contracts
+
                     if (Main.rentalContracts.isEmpty()) {
                         System.out.println("No rental contracts at the moment.");
                         break;

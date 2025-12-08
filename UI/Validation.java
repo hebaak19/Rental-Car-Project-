@@ -80,7 +80,7 @@ public class Validation {
     }
 
     public static String validateDays() {
-        // grater than 0
+
         String days;
         while (true) {
             System.out.println("Enter rental period in days:");
