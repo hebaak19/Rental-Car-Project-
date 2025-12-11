@@ -98,8 +98,9 @@ public class Customer extends Person {
 
     public static void returnACar() {
         Customer currentCustomer = (Customer) Main.customer;
-        if (currentCustomer == null) {
-            System.out.println("No customer is logged in.");
+        //check if he rented a car
+        if (currentCustomer == null || currentCustomer.getCarRented() == null) {
+            System.out.println("You have not rented a car.");
             return;
         }
 

@@ -87,32 +87,67 @@ public class Payment implements Payable {
                 Validation.contractId,
                 ErrorMessages.INVALID_CONTRACT_ID);
 
+        RentalContract contractToRefund = null;
         for (RentalContract rc : Main.rentalContracts) {
-            if (rc.getId().equals(contractId) && rc.getEndDate().isAfter(LocalDate.now()) && rc.isActive()) {
-                PaymentMethod method = Validation.vPaymentMethod();
-                System.out
-                        .println("Processing refund for Contract ID: " + contractId + ", Amount: " + rc.getTotalCost()
-                                + " via " + method);
-                rc.setActive(false);
-                return;
-            } else {
-                System.out.println("No active contract found with ID: " + contractId);
+            if (rc.getId().equals(contractId) && rc.isActive()) {
+                contractToRefund = rc;
+                break;
             }
+        }
+
+        if (contractToRefund != null) {
+            PaymentMethod method = Validation.vPaymentMethod();
+            System.out.println("Processing refund for Contract ID: " + contractId + ", Amount: "
+                    + contractToRefund.getTotalCost() + " via " + method);
+            contractToRefund.setActive(false);
+
+            String carId = contractToRefund.getId();
+            for (Car car : Main.carInventory) {
+                if (car.getCarId().equals(carId)) {
+                    car.setAvailable(true);
+                    break;
+                }
+            }
+
+            for (Customer c : Main.customers) {
+                if (carId.equals(c.getCarRented())) {
+                    c.setCarRented(null);
+                    break;
+                }
+            }
+
+            System.out.println("Refund processed successfully. Car is now available.");
+        } else {
+            System.out.println("No active contract found with ID: " + contractId);
         }
     }
 
     public static void customerRefund() {
+        Customer currentCustomer = (Customer) Main.customer;
+        if (currentCustomer == null) {
+            System.out.println("No customer is logged in.");
+            return;
+        }
+
+        if (currentCustomer.getCarRented() == null) {
+            System.out.println("You haven't rented any car. Refund not applicable.");
+            return;
+        }
 
         String carId = Validation.getValidatedInput(
                 "Enter Car ID for refund:",
                 Validation.carID,
                 ErrorMessages.INVALID_CAR_ID);
+
+        if (!carId.equals(currentCustomer.getCarRented())) {
+            System.out.println("You can only request a refund for the car you rented (Car ID: "
+                    + currentCustomer.getCarRented() + ").");
+            return;
+        }
+
         RentalContract contractToRefund = null;
         for (RentalContract contract : Main.rentalContracts) {
-
-            if (contract.getId().equals(carId) && contract.getEndDate().isAfter(LocalDate.now())
-                    && contract.isActive()) {
-
+            if (carId.equals(contract.getId()) && contract.isActive()) {
                 contractToRefund = contract;
                 break;
             }
@@ -120,12 +155,24 @@ public class Payment implements Payable {
 
         if (contractToRefund != null) {
             PaymentMethod method = Validation.vPaymentMethod();
-            System.out
-                    .println("Processing refund for Car ID: " + carId + ", Amount: " + contractToRefund.getTotalCost()
-                            + " via " + method);
+            System.out.println("Processing refund for Car ID: " + carId + ", Amount: " + contractToRefund.getTotalCost()
+                    + " via " + method);
             contractToRefund.setActive(false);
+
+            for (Car car : Main.carInventory) {
+                if (car.getCarId().equals(carId)) {
+                    car.setAvailable(true);
+                    break;
+                }
+            }
+
+            if (carId.equals(currentCustomer.getCarRented())) {
+                currentCustomer.setCarRented(null);
+            }
+
+            System.out.println("Refund processed successfully. Car is now available.");
         } else {
-            System.out.println("No contract found with Car ID: " + carId);
+            System.out.println("No active contract found with Car ID: " + carId);
         }
     }
 

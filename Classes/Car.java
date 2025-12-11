@@ -22,7 +22,6 @@ public class Car {
         this.isAvailable = isAvailable;
     }
 
-    // sample cars
     public static void sampleCars() {
         Main.carInventory.add(new Car("1122", "Toyota", "2020", 100, true));
         Main.carInventory.add(new Car("3344", "Honda", "2019", 90, true));
@@ -75,7 +74,6 @@ public class Car {
                 + " SAR " + ", isAvailable= " + isAvailable + "]";
     }
 
-    // Car Methods
     public static void AddCar() {
 
         System.out.println("Add Car");
