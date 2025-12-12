@@ -1,5 +1,7 @@
 package UI;
 
+/* Holds all menu options displayed to users during system navigation. */
+
 public class Menu {
         static String mainMenu = """
                         === Main Menu ===

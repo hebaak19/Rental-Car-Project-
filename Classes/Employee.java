@@ -5,6 +5,11 @@ import UI.Menu;
 import Enum.Role;
 import UI.Main;
 
+/*
+ * Represents an employee in the system.
+ * Each employee has a role that determines which menu and actions are available.
+ */
+
 public class Employee extends Person {
     static Scanner scanner = new Scanner(System.in);
     private Role role;
@@ -17,6 +22,7 @@ public class Employee extends Person {
     }
 
     public static void emploeesData() {
+        // Adds sample employees to the system
         Main.employees.add(new Classes.Employee("Alice", "1001", Role.ADMIN, "alice@gmail.com"));
         Main.employees.add(new Classes.Employee("Bob", "1002", Role.MANAGER, "bob@gmail.com"));
         Main.employees.add(new Classes.Employee("Noor", "1003", Role.SALESMAN, "noor@gmail.com"));
@@ -44,9 +50,9 @@ public class Employee extends Person {
         this.workEmail = workEmail;
     }
 
-    // Methods
+    
     public static void adminMenu() {
-
+        // Displays and handles Admin actions
         int choice;
         do {
             System.out.println(Menu.adminMenu);
@@ -76,7 +82,7 @@ public class Employee extends Person {
     }
 
     public static void manegerMenu() {
-
+         // Displays reports and employee information for managers
         int choice;
         do {
             System.out.println(Menu.managerMenu);
@@ -84,6 +90,7 @@ public class Employee extends Person {
             scanner.nextLine();
             switch (choice) {
                 case 1:
+                        // View all rental contract
                     if (Main.rentalContracts.isEmpty()) {
                         System.out.println("No rental contracts at the moment.");
                         break;
@@ -95,6 +102,7 @@ public class Employee extends Person {
                     }
                     break;
                 case 2:
+                        // View all employees
                     System.out.println("View all Employees");
                     for (Classes.Employee emp : Main.employees) {
                         System.out.println(emp.toString());
@@ -110,6 +118,7 @@ public class Employee extends Person {
     }
 
     public static void salesmanMenu() {
+           // Displays sales-related actions
         int choice;
         do {
             System.out.println(Menu.salesmanMenu);
@@ -121,6 +130,7 @@ public class Employee extends Person {
                 }
 
                 case 2 -> {
+                        // View customers and their rented cars
                     System.out.println("View all Customers");
                     if (Main.customers.isEmpty()) {
                         System.out.println("No customers found.");
@@ -138,6 +148,7 @@ public class Employee extends Person {
     }
 
     public static void customerServiceMenu() {
+            // Handles customer support operations 
         int choice;
         do {
             System.out.println(Menu.customerServiceMenu);

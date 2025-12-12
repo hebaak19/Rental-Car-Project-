@@ -1,19 +1,19 @@
 package Classes;
-
 import java.util.Scanner;
-
 import UI.ErrorMessages;
 import UI.Main;
 import UI.Validation;
 
 public class Car {
     static Scanner scanner = new Scanner(System.in);
-    private String carId;
-    private String brand;
-    private String model;
-    private double pricePerDay;
-    private boolean isAvailable;
-
+    // Car attributes
+    private String carId; // Unique ID for the car
+    private String brand; // Car brand
+    private String model; // Car model
+    private double pricePerDay; // Rental price per day
+    private boolean isAvailable; // Availability status
+    
+    // Constructor to initialize car object
     public Car(String carId, String brand, String model, double pricePerDay, boolean isAvailable) {
         this.carId = carId;
         this.brand = brand;
@@ -22,12 +22,14 @@ public class Car {
         this.isAvailable = isAvailable;
     }
 
+    // sample cars
     public static void sampleCars() {
         Main.carInventory.add(new Car("1122", "Toyota", "2020", 100, true));
         Main.carInventory.add(new Car("3344", "Honda", "2019", 90, true));
         Main.carInventory.add(new Car("5566", "Ford", "2021", 110, true));
     }
-
+    
+    // Getters and Setters
     public String getCarId() {
         return carId;
     }
@@ -68,24 +70,28 @@ public class Car {
         this.isAvailable = isAvailable;
     }
 
+    // toString method for displaying car information
     @Override
     public String toString() {
         return "Car [carId = " + carId + ", brand = " + brand + ", model = " + model + ", pricePerDay = " + pricePerDay
                 + " SAR " + ", isAvailable= " + isAvailable + "]";
     }
 
+    // Method to add a new car to the inventory
     public static void AddCar() {
 
         System.out.println("Add Car");
+        // Validate Car ID input
         String id = Validation.getValidatedInput(
                 "Enter Car ID:",
                 Validation.carID,
                 ErrorMessages.INVALID_CAR_ID);
-
+        // Check if ID already exists
         if (Main.carInventory.stream().anyMatch(car -> car.getCarId().equals(id))) {
             System.out.println(ErrorMessages.CAR_ID_EXISTS);
             return;
         }
+         // Get other car details
         System.out.println("Enter Car Make:");
         String make = scanner.nextLine();
         System.out.println("Enter Car Model:");
@@ -93,20 +99,24 @@ public class Car {
         System.out.println("Enter Car Price per Day:");
         double pricePerDay = scanner.nextDouble();
         scanner.nextLine();
+        
+        // Add car to inventory
         Main.carInventory.add(new Car(id, make, model, pricePerDay, true));
         System.out.println("Car added successfully!");
     }
-
+    // Method to remove a car from the inventory
     public static void removeCar() {
         System.out.println("Remove Car");
         String removeId = Validation.getValidatedInput(
                 "Enter Car ID to remove:",
                 Validation.carID,
                 ErrorMessages.INVALID_CAR_ID);
+        // Remove car with matching ID
         Main.carInventory.removeIf(car -> car.getCarId().equals(removeId));
         System.out.println("Car removed successfully!");
     }
 
+    // Method to view all available cars
     public static void viewAvailableCars() {
         System.out.println("\n========== Available Cars ==========");
         boolean found = false;
