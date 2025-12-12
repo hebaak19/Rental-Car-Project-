@@ -33,7 +33,7 @@ public class Menu {
 
         public static String managerMenu = """
                         === Manager Menu ===
-                        1. View Reports
+                        1. View Active Reports
                         2. View all Employees
                         3. Exit
                         """;

@@ -88,8 +88,9 @@ public class Employee extends Person {
                         System.out.println("No rental contracts at the moment.");
                         break;
                     }
-                    System.out.println("Viewing Rental contracts...");
+                    System.out.println("Viewing Active Rental contracts...");
                     for (RentalContract rc : Main.rentalContracts) {
+
                         System.out.println(rc.toString());
                     }
                     break;
