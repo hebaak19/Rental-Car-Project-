@@ -1,7 +1,6 @@
 package Classes;
 
 import java.time.LocalDate;
-
 import UI.Main;
 
 public class RentalContract {
@@ -27,10 +26,6 @@ public class RentalContract {
 
     public void setActive(boolean isActive) {
         this.isActive = isActive;
-    }
-
-    public static void sampleRentalContracts() {
-
     }
 
     public String getId() {
@@ -77,6 +72,7 @@ public class RentalContract {
                 + ", Total Cost: " + totalCost + " SAR";
     }
 
+    // this method is to view all active rental contracts
     public static void viewActiveContracts() {
         boolean found = false;
         System.out.println("Active Rental Contracts:");

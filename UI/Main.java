@@ -22,7 +22,7 @@ public class Main {
 
     public static void main(String[] args) {
         Car.sampleCars();
-        RentalContract.sampleRentalContracts();
+       
 
         Employee.emploeesData();
         int choice;
