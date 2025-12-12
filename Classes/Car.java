@@ -112,10 +112,15 @@ public class Car {
                 Validation.carID,
                 ErrorMessages.INVALID_CAR_ID);
         // Remove car with matching ID
+        // check if car exists
+        boolean exists = Main.carInventory.stream().anyMatch(car -> car.getCarId().equals(removeId));
+        if (!exists) {
+            System.out.println("Car ID not found. Cannot remove non-existent car.");
+            return;
+        }
         Main.carInventory.removeIf(car -> car.getCarId().equals(removeId));
         System.out.println("Car removed successfully!");
     }
-
     // Method to view all available cars
     public static void viewAvailableCars() {
         System.out.println("\n========== Available Cars ==========");
