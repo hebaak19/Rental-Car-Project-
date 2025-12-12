@@ -10,6 +10,7 @@ public class RentalContract {
     private LocalDate endDate;
     private double totalCost;
     private boolean isActive;
+    public static double totalSales = 0;
 
     public RentalContract(String contractId, LocalDate startDate, LocalDate endDate, double totalCost) {
         this.contractId = contractId;
@@ -17,6 +18,7 @@ public class RentalContract {
         this.endDate = endDate;
         this.totalCost = totalCost;
         this.isActive = true;
+        calculateTotalCost(totalCost);
     }
 
     public boolean isActive() {
@@ -63,15 +65,10 @@ public class RentalContract {
         return endDate.getDayOfYear() - startDate.getDayOfYear();
     }
 
-    public static double calculateTotalCost() {
+    public static double calculateTotalCost(double cost) {
+        totalSales += cost;
+        return totalSales;
 
-        double sum = 0.0;
-        for (RentalContract rc : Main.rentalContracts) {
-            if (rc.isActive()) {
-                sum += rc.getTotalCost();
-            }
-        }
-        return sum;
     }
 
     @Override

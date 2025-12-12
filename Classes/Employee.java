@@ -116,7 +116,7 @@ public class Employee extends Person {
             scanner.nextLine();
             switch (choice) {
                 case 1 -> {
-                    System.out.println("Total sales = " + RentalContract.calculateTotalCost());
+                    System.out.println("Total sales = " + RentalContract.totalSales + " SAR");
                 }
 
                 case 2 -> {
@@ -126,7 +126,7 @@ public class Employee extends Person {
                         break;
                     }
                     for (Classes.Customer cust : Main.customers) {
-                        //print all the cars rented by the cutomer 
+                        // print all the cars rented by the cutomer
                         System.out.println(cust.toString() + ", Car Rented: " + cust.getCarRented());
                     }
                 }

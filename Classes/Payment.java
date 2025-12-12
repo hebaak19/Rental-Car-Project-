@@ -117,6 +117,8 @@ public class Payment implements Payable {
             }
 
             System.out.println("Refund processed successfully. Car is now available.");
+            // decrement total sales
+            RentalContract.totalSales -= contractToRefund.getTotalCost();
         } else {
             System.out.println("No active contract found with ID: " + contractId);
         }
@@ -158,6 +160,8 @@ public class Payment implements Payable {
             System.out.println("Processing refund for Car ID: " + carId + ", Amount: " + contractToRefund.getTotalCost()
                     + " via " + method);
             contractToRefund.setActive(false);
+            // decrement total sales
+            RentalContract.totalSales -= contractToRefund.getTotalCost();
 
             for (Car car : Main.carInventory) {
                 if (car.getCarId().equals(carId)) {

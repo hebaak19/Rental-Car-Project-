@@ -98,7 +98,7 @@ public class Customer extends Person {
 
     public static void returnACar() {
         Customer currentCustomer = (Customer) Main.customer;
-        //check if he rented a car
+        // check if he rented a car
         if (currentCustomer == null || currentCustomer.getCarRented() == null) {
             System.out.println("You have not rented a car.");
             return;
@@ -111,7 +111,8 @@ public class Customer extends Person {
 
         Car returningCar = null;
         for (Car car : Main.carInventory) {
-            if (car.getCarId().equals(carId) && !car.isAvailable()) {
+            // also check that the car he rented matches the car id
+            if (car.getCarId().equals(carId) && !car.isAvailable() && carId.equals(currentCustomer.getCarRented())) {
                 returningCar = car;
                 break;
             }

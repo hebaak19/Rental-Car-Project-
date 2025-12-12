@@ -11,8 +11,10 @@ public class Validation {
     static Scanner scanner = new Scanner(System.in);
     static public String nameRegex = "^[A-Za-z ]{2,}$";
     static public String idRegex = "^[0-9]{4,}$";
-    static public String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-    static public String phoneRegex = "^[0-9]{10}$";
+    // must contain '@' and a domain name
+    static public String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    // must start with 0 & 5 followed by 8 digits
+    static public String phoneRegex = "^05[0-9]{8}$";
     static public String licensePlateRegex = "^[0-9]{10}$";
     static public String carID = "^[0-9]{4,}$";
     static public String contractId = "^[0-9]{4,}$";
