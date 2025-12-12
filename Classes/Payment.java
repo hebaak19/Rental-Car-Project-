@@ -100,7 +100,9 @@ public class Payment implements Payable {
             System.out.println("Processing refund for Contract ID: " + contractId + ", Amount: "
                     + contractToRefund.getTotalCost() + " via " + method);
             contractToRefund.setActive(false);
-
+            // remove it from active contracts
+            Main.rentalContracts.remove(contractToRefund);
+            // make the car available again
             String carId = contractToRefund.getId();
             for (Car car : Main.carInventory) {
                 if (car.getCarId().equals(carId)) {
@@ -160,6 +162,8 @@ public class Payment implements Payable {
             System.out.println("Processing refund for Car ID: " + carId + ", Amount: " + contractToRefund.getTotalCost()
                     + " via " + method);
             contractToRefund.setActive(false);
+            // remove it from active contracts
+            Main.rentalContracts.remove(contractToRefund);
             // decrement total sales
             RentalContract.totalSales -= contractToRefund.getTotalCost();
 
